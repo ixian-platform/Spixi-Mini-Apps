@@ -1,0 +1,6 @@
+caVersion = 0
+id = com.ixilabs.spixi.draw
+publisher = IXI Labs
+name = Spixi Draw
+version = 1
+capabilities = multiUser

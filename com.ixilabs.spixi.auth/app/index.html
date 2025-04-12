@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<!-- saved from url=(0016)http://localhost -->
+
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="js/html5-qrcode.min.js"></script>
+    <script src="js/spixiTools.js"></script>
+    <script src="js/spixiAppSdk.js"></script>
+    <script src="js/main.js"></script>
+
+    <title>Spixi Auth</title>
+
+</head>
+<body onload="init();">
+    <div>
+        <div onclick="SpixiAppSdk.back();" class="backButton">&lt;</div>
+        <div>
+            <div id="afix"><i class="fas fa-qrcode"></i></div>
+        </div>
+        <div>
+        </div>
+    </div>
+    <div>
+        <div id="serviceAction" contenteditable="true"></div>
+        <input type="button" onclick="SpixiAppSdk.spixiAction(document.getElementById('serviceAction').innerHTML);" value="Execute" />
+    </div>
+    <div id="reader"></div>
+</body>
+</html>
