@@ -26,10 +26,6 @@ i {
     gap: 24px;
 }
 
-.exit{
-    align-self: flex-start;
-}
-
 .note {
     max-width: 342px;
     background: rgba(0, 111, 173, 0.15);
