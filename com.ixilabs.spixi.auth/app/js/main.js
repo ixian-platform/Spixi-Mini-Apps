@@ -1,7 +1,6 @@
 function init() {
 
     setInterval(androidFix, 100);
-    var el = document.getElementById("reader");
     var afix = document.getElementById("afix").innerHTML;
 
     // Fix for camera view freeze on some Android devices
@@ -35,3 +34,18 @@ function init() {
     // Notify C# that the app has loaded
     SpixiAppSdk.fireOnLoad();
 }
+
+document.getElementById('authBtn').addEventListener('click', function () {
+    const textarea = document.getElementById('serviceAction');
+    const value = textarea.value.trim();
+    const errorMsg = document.getElementById('errorMessage');
+
+    if (!value) {
+        textarea.classList.add('invalid');
+        errorMsg.style.display = 'block';
+    } else {
+        textarea.classList.remove('invalid');
+        errorMsg.style.display = 'none';
+        SpixiAppSdk.spixiAction(value);
+    }
+});

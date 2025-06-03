@@ -11,24 +11,26 @@
     <script src="js/html5-qrcode.min.js"></script>
     <script src="js/spixiTools.js"></script>
     <script src="js/spixiAppSdk.js"></script>
-    <script src="js/main.js"></script>
-
-    <title>Spixi Auth</title>
+    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <title>Spixi Authenticator</title>
 
 </head>
 <body onload="init();">
-    <div>
-        <div onclick="SpixiAppSdk.back();" class="backButton">&lt;</div>
-        <div>
-            <div id="afix"><i class="fas fa-qrcode"></i></div>
-        </div>
-        <div>
-        </div>
+<main class="spixi-auth">
+    <div class="note">
+        <i class="fas fa-circle-info"></i>
+        <span>Spixi Authenticator allows you to verify your identity and access supported services such as IXI Names.</span>
     </div>
-    <div>
-        <div id="serviceAction" contenteditable="true"></div>
-        <input type="button" onclick="SpixiAppSdk.spixiAction(document.getElementById('serviceAction').innerHTML);" value="Execute" />
+    <div class="inputs-container">
+        <textarea id="serviceAction" placeholder="Enter URL..."></textarea>
+        <span class="invalid-input" id="errorMessage" style="display: none;">Please enter a valid URL.</span>
+        <div class="buttons-container">
+            <button id="authBtn" class="btn-primary"><i class="fas fa-lock"></i>Authenticate</button>
+            <span>or</span>
+            <button id="afix" class="btn-outline"><i class="fa fa-qrcode"></i>Scan</button>
+        </div>
     </div>
     <div id="reader"></div>
+</main>
 </body>
 </html>
