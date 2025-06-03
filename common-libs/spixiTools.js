@@ -32,5 +32,8 @@ var SpixiTools = {
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+    },
+    getTimestamp: function() {
+        return Math.round(+new Date() / 1000);
     }
 }

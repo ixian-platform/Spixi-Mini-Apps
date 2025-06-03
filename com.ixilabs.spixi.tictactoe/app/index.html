@@ -3,29 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <style>
-        #board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            gap: 5px;
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            border: 1px solid #000;
-            cursor: pointer;
-        }
-    </style>
+    <title>Tic Tac Toe for Spixi</title>
+    <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-    <div id="board"></div>
+    <div class="container">
+        <div class="title">
+            <!-- Replace with SVG title -->
+            <img src="img/title.svg" alt="Tic-Tac-Toe" />
+        </div>
+
+        <div id="board">
+            <div id="winLine"></div>
+            <!-- grid lines -->
+            <div class="line v1"></div>
+            <div class="line v2"></div>
+            <div class="line h1"></div>
+            <div class="line h2"></div>
+        </div>
+
+        <div class="game-controls">
+            <button id="restartBtn" style="display: none;" onclick="restartGame(true);">Restart Game</button>
+        </div>
+
+        <button class="back-button" onclick="SpixiAppSdk.back();">
+            Back to chat
+        </button>
+    </div>
     <script src="js/spixiTools.js"></script>
     <script src="js/spixiAppSdk.js"></script> <!-- Include the Spixi SDK -->
-    <script src="tic_tac_toe.js"></script> <!-- Your game code -->
+    <script src="js/tic_tac_toe.js"></script> <!-- Your game code -->
 </body>
 </html>

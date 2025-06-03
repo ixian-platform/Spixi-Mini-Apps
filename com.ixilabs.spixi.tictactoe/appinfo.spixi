@@ -1,6 +1,9 @@
 caVersion = 0
 id = com.ixilabs.spixi.tictactoe
-publisher = Dombi
+publisher = IXI Labs
 name = Tic-Tac-Toe
-version = 1.0.0
-capabilities = multiUser 
+version = 1.0.1
+capabilities = multiUser
+maxUsers = 2
+url = https://resources.ixian.io/tic-tac-toe.spixi
+contentUrl = https://resources.ixian.io/tic-tac-toe.zip
