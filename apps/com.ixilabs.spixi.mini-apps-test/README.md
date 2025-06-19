@@ -128,7 +128,7 @@ function appSdkDataReceived(type, data) {
 
 ## 📌 Notes
 
-* **Callbacks like `onStorageData` and `onNetworkData` are dynamically reassigned** during tests. This is important for verifying individual operations in sequence.
+* **Callback `onStorageData` is dynamically reassigned** during tests. This is important for verifying individual operations in sequence.
 * Spixi requires data to be **base64-encoded before saving**, and **decoded after retrieval** using `btoa()` and `atob()`.
 * Network data can only be sent and received when the app is running within an active Spixi session.
 
