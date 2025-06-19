@@ -258,7 +258,7 @@ contentSize = ${contentSize}`;
 
             const spixiBlob = new Blob([spixiText], { type: "text/plain" });
 
-            const baseName = data.name.trim().toLowerCase();
+            const baseName = data.name.trim().replaceAll(' ', '-').toLowerCase();
             saveAs(zipBlob, `${baseName}.zip`);
             saveAs(spixiBlob, `${baseName}.spixi`);
 

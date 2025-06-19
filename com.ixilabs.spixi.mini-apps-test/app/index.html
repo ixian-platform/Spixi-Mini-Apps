@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spixi Mini Apps Test</title>
+</head>
+<body>
+    Tests:<br />
+    <button onclick="storageDataTest()">Storage Data</button>
+    <button onclick="setDataKey('testKey1', Math.floor(Math.random() * 1000))">Set Data Key with Random</button>
+    <button onclick="getDataKey('testKey1')">Get Data Key Value</button>
+    <button onclick="SpixiAppSdk.sendNetworkData('RND: ' + Math.floor(Math.random() * 1000))">Send Random Network Data</button>
+    <div id="miniAppsTestOutput"></div>
+    <script src="js/spixi-tools.js"></script>
+    <script src="js/spixi-app-sdk.js"></script> <!-- Include the Spixi SDK -->
+    <script src="js/mini-apps-test.js"></script> <!-- Your app code -->
+</body>
+</html>

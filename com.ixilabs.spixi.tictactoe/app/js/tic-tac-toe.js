@@ -1,3 +1,16 @@
+// Copyright (C) 2025 IXI Labs
+// This file is part of Ixian Core - https://github.com/ixian-platform/Spixi-Mini-Apps
+//
+// Ixian Core is free software: you can redistribute it and/or modify
+// it under the terms of the MIT License as published
+// by the Open Source Initiative.
+//
+// Ixian Core is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MIT License for more details.
+
+
 // Global variables
 let gameState = {
     board: ['', '', '', '', '', '', '', '', ''],
@@ -31,14 +44,9 @@ function ping() {
         return;
     }
     lastDataSent = currentTime;
-
-    const data = { action: "ping", fullCellCount: gameState.board.filter((x) => x != '').length };
+    const myTurn = gameState.playersTurn == "local" ? true : false;
+    const data = { action: "ping", movesCount: gameState.board.filter((x) => x != '').length, myTurn: myTurn };
     SpixiAppSdk.sendNetworkData(JSON.stringify(data));
-}
-
-// Initialize the game
-function init() {
-    SpixiAppSdk.fireOnLoad();
 }
 
 function restartGame(saveState) {
@@ -116,14 +124,14 @@ function saveGameState() {
     if (remotePlayerAddress != '') {
         setTimeout(function () {
             SpixiAppSdk.setStorageData(remotePlayerAddress, btoa(JSON.stringify(gameState)));
-        }, 0);
+        }, 50);
     }
 }
 
 function loadGameState(playerAddress) {
     setTimeout(function () {
         SpixiAppSdk.getStorageData(playerAddress);
-    }, 0);
+    }, 50);
 }
 
 function switchPlayer() {
@@ -142,12 +150,15 @@ function sendMove(cellPosition) {
     }, 0);
 }
 
-function sendGameState() {
+function sendGameState(forceUpdate) {
     const currentTime = SpixiTools.getTimestamp();
     lastDataSent = currentTime;
 
     setTimeout(function () {
-        const data = { action: "gameState", gameState: gameState };
+        let data = { action: "gameState", gameState: gameState };
+        if (forceUpdate) {
+            data = { action: "gameState", gameState: gameState, forceUpdate: true };
+        }
         SpixiAppSdk.sendNetworkData(JSON.stringify(data));
     }, 0);
 }
@@ -166,7 +177,7 @@ SpixiAppSdk.onInit = function (sessionId, userAddresses) {
     remotePlayerAddress = userAddresses.split(",")[0];
     restartGame(false);
     loadGameState(remotePlayerAddress);
-}
+};
 
 // Receive data from the other player
 SpixiAppSdk.onNetworkData = function (senderAddress, data) {
@@ -178,15 +189,32 @@ SpixiAppSdk.onNetworkData = function (senderAddress, data) {
             sendGameState();
             break;
         case "gameState":
-            if (parsedData["gameState"].board.filter((x) => x != '').length > gameState.board.filter((x) => x != '').length) {
-                gameState = parsedData["gameState"];
-                gameState.playersTurn = gameState.playersTurn === 'local' ? 'remote' : 'local';
-                renderBoard();
-                checkWinner();
-            } else if (parsedData["gameState"].board.filter((x) => x != '').length < gameState.board.filter((x) => x != '').length) {
-                if (parsedData["gameState"].board.filter((x) => x != '').length > 1
-                    || !gameState.gameEnded) {
-                    sendGameState();
+            {
+                const myMovesCount = gameState.board.filter((x) => x != '').length;
+                const otherMovesCount = parsedData["gameState"].board.filter((x) => x != '').length;
+                if (otherMovesCount > myMovesCount) {
+                    gameState = parsedData["gameState"];
+                    gameState.playersTurn = gameState.playersTurn === 'local' ? 'remote' : 'local';
+                    renderBoard();
+                    checkWinner();
+                    saveGameState();
+                } else if (otherMovesCount < myMovesCount) {
+                    if (otherMovesCount > 1
+                        || !gameState.gameEnded) {
+                        sendGameState();
+                    }
+                } else // if ==
+                {
+                    const myTurn = gameState.playersTurn == "local" ? true : false;
+                    if (parsedData.myTurn == myTurn
+                        && parsedData.forceUpdate) {
+                        // edge case, both users made the very first move at the same time
+                        gameState = parsedData["gameState"];
+                        gameState.playersTurn = gameState.playersTurn === 'local' ? 'remote' : 'local';
+                        renderBoard();
+                        checkWinner();
+                        saveGameState();
+                    }
                 }
             }
             break;
@@ -214,9 +242,18 @@ SpixiAppSdk.onNetworkData = function (senderAddress, data) {
             saveGameState();
             break;
         case "ping":
-            if (parsedData.fullCellCount < gameState.board.filter((x) => x != '').length) {
-                if (parsedData.fullCellCount > 1 || !gameState.gameEnded) {
-                    sendGameState();
+            {
+                const myMovesCount = gameState.board.filter((x) => x != '').length;
+                if (parsedData.movesCount < myMovesCount) {
+                    if (parsedData.movesCount > 1 || !gameState.gameEnded) {
+                        sendGameState();
+                    }
+                } else if (parsedData.movesCount == myMovesCount) {
+                    const myTurn = gameState.playersTurn == "local" ? true : false;
+                    if (parsedData.myTurn == myTurn) {
+                        // edge case, both users made the very first move at the same time
+                        sendGameState(true);
+                    }
                 }
             }
             break;
@@ -260,4 +297,4 @@ function showWinLine(index) {
 }
 
 // Start the game on load
-window.onload = init;
+window.onload = SpixiAppSdk.fireOnLoad;
