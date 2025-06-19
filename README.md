@@ -1,6 +1,6 @@
 ﻿# Spixi Mini Apps
 
-This repository contains everything you need to develop, package, and publish Mini Apps for the **Spixi** decentralized messenger. Whether you're building a single-user utility or a multi-user game, Spixi Mini Apps are fully client-side applications powered by HTML, CSS, and JavaScript—running securely inside Spixi via a WebView interface.
+This repository contains everything you need to develop, package, and publish Mini Apps for the **Spixi** decentralized messenger. Whether you're building a single-user utility or a multi-user game, Spixi Mini Apps are fully client-side applications powered by HTML, CSS, and JavaScript - running securely inside Spixi via a WebView interface.
 
 ---
 
@@ -59,9 +59,9 @@ yourapp/
 ├── appinfo.spixi
 ├── icon.png
 └── app/
-├── index.html
-├── js/
-└── css/
+│   ├── index.html
+│   ├── js/
+│   └── css/
 ```
 
 Requirements:

@@ -1,57 +1,79 @@
 ﻿# Spixi Mini Apps SDK
 
-This directory contains the JavaScript SDK used to build and run Spixi Mini Apps within the Spixi ecosystem. The SDK provides integration points for communicating with the decentralized Ixian platform and managing Mini App state.
+This directory contains the JavaScript SDK used to build and run Spixi Mini Apps within the Spixi ecosystem.
+
+The SDK provides integration points for communicating with the decentralized Ixian platform and managing Mini App state.
 
 ---
 
-## Files
+## Contents
 
-### `spixi-app-sdk.js`
-
-This is the core interface between a Mini App and the Spixi platform. It exposes several functions and callback handlers to enable communication, data storage, and session control.
-
-#### Features:
-
-- **Event Triggers (Spixi → App):**
-  - `onInit(sessionId, userAddresses)`  
-    Called when the Mini App is initialized.
-  - `onStorageData(key, value)`  
-    Called when storage data is retrieved.
-  - `onNetworkData(senderAddress, data)`  
-    Called when network data is received from another user.
-  - `onRequestAccept(data)` / `onRequestReject(data)`  
-    Called when the user accepts or rejects a request.
-  - `onAppEndSession(data)`  
-    Called when a session ends.
-
-- **Actions (App → Spixi):**
-  - `fireOnLoad()`  
-    Notifies Spixi that the app has finished loading.
-  - `back()`  
-    Signals a "go back" action.
-  - `sendNetworkData(data)`  
-    Sends data to other session participants.
-  - `getStorageData(key)` / `setStorageData(key, value)`  
-    Retrieves or stores local key-value data on the user's device.
-  - `spixiAction(actionData)`  
-    Executes a generic action, customizable per app.
+- `spixi-app-sdk.js` – Core API for communication with the Spixi environment
+- `spixi-tools.js` – Utility helper functions (encoding, escaping, timestamping, UI command decoding)
 
 ---
 
-### `spixi-tools.js`
+## Quick Start
 
-A helper utility file containing general-purpose functions used by Mini Apps to encode, decode, and manage data safely and effectively.
+1. Include both files in your app:
+   ```html
+   <script src="spixi-app-sdk.js"></script>
+   <script src="spixi-tools.js"></script>
+   ```
 
-#### Features:
+2. Use the SDK inside your app to interact with Spixi:
 
-- **`base64ToBytes(base64)`**  
-  Converts a base64-encoded string to a decoded string.
+   ```javascript
+   SpixiAppSdk.sendNetworkData("Hello other peer!");
+   ```
 
-- **`escapeParameter(str)` / `unescapeParameter(str)`**  
-  Escapes or unescapes user-input values for safe DOM injection.
+3. Handle events by overriding the appropriate callbacks:
 
-- **`getTimestamp()`**  
-  Returns the current UNIX timestamp.
+   ```javascript
+   SpixiAppSdk.onInit = function(sessionId, userAddresses) {
+       console.log("App session started:", sessionId, userAddresses);
+   };
+
+   SpixiAppSdk.onNetworkData = function(sender, data) {
+       console.log("Received message from", sender, ":", data);
+   };
+   ```
+
+---
+
+## spixi-app-sdk.js API
+
+| Function                     | Description                                   |
+| ---------------------------- | --------------------------------------------- |
+| `fireOnLoad()`               | Notifies Spixi that the Mini App has loaded.  |
+| `back()`                     | Signals a request to close the app view.      |
+| `sendNetworkData(data)`      | Sends `data` to other users in the session.   |
+| `getStorageData(key)`        | Requests a locally stored value by key.       |
+| `setStorageData(key, value)` | Saves a key-value pair to local storage.      |
+| `spixiAction(actionData)`    | Sends a custom action string to the host app. |
+
+### Event Handlers to Override
+
+| Handler                              | Description                                    |
+| ------------------------------------ | ---------------------------------------------- |
+| `onInit(sessionId, userAddresses)`   | Called when the Mini App starts.               |
+| `onNetworkData(senderAddress, data)` | Called when data is received from the network. |
+| `onStorageData(key, value)`          | Called when a stored value is received.        |
+| `onRequestAccept(data)`              | Called when a session request is accepted.     |
+| `onRequestReject(data)`              | Called when a session request is rejected.     |
+| `onAppEndSession(data)`              | Called when the session ends.                  |
+
+---
+
+## spixi-tools.js Utilities
+
+| Function                         | Description                                                       |
+| -------------------------------- | ----------------------------------------------------------------- |
+| `escapeParameter(str)`           | Escapes HTML-sensitive characters for safe embedding.             |
+| `unescapeParameter(str)`         | Reverses the escaping of HTML-sensitive characters.               |
+| `getTimestamp()`                 | Returns current UNIX timestamp.                                   |
+| `executeUiCommand(cmd, ...args)` | Internal function required by Spixi to communicate with Mini App. |
+| `base64ToBytes(base64)`          | Decodes a base64 string into a UTF-8 string.                      |
 
 ---
 
