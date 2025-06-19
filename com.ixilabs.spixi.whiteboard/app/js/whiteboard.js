@@ -222,7 +222,7 @@ class SpixiWhiteboard {
 }
 
 var spixiWhiteboard = new SpixiWhiteboard();
-spixiWhiteboard.init("whiteboardCanvas");
+
 SpixiAppSdk.onInit = function (sessionId, userAddresses) {
     spixiWhiteboard.init("whiteboardCanvas");
 };
