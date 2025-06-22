@@ -84,7 +84,7 @@ class SpixiWhiteboard {
 
         const t = this;
 
-        document.getElementById("remoteUserPresenceIndicator").addEventListener('click', (e) => { t.reset(); SpixiAppSdk.sendNetworkData("ping"); }, false);
+        document.getElementById("remoteUserPresenceIndicator").addEventListener('click', (e) => { t.reset(); SpixiAppSdk.sendNetworkData("reset"); }, false);
 
         this.pingInterval = setInterval(() => { t.ping(); }, 5000);
 

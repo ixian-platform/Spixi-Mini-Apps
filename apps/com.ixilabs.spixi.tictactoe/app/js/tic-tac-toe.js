@@ -205,8 +205,7 @@ SpixiAppSdk.onNetworkData = function (senderAddress, data) {
                     }
                 } else // if ==
                 {
-                    const myTurn = gameState.playersTurn == "local" ? true : false;
-                    if (parsedData.myTurn == myTurn
+                    if (parsedData["gameState"].playersTurn == gameState.playersTurn
                         && parsedData.forceUpdate) {
                         // edge case, both users made the very first move at the same time
                         gameState = parsedData["gameState"];
@@ -249,7 +248,7 @@ SpixiAppSdk.onNetworkData = function (senderAddress, data) {
                         sendGameState();
                     }
                 } else if (parsedData.movesCount == myMovesCount) {
-                    const myTurn = gameState.playersTurn == "local" ? true : false;
+                    const myTurn = gameState.playersTurn === 'local' ? true : false;
                     if (parsedData.myTurn == myTurn) {
                         // edge case, both users made the very first move at the same time
                         sendGameState(true);

@@ -1,6 +1,3 @@
-function sendVideoData(e) {
-    location.href = "ixian:data" + mouseX + ";" + mouseY;
-}
 
 function init() {
     try
@@ -22,7 +19,4 @@ function init() {
     }
 
     location.href = "ixian:onload";
-}
-
-function networkData(data) {
 }
