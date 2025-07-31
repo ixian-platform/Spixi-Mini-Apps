@@ -13,11 +13,12 @@
 // Spixi Mini Mini Apps SDK
 
 var SpixiAppSdk = {
-    version: 0.2,
-    date: "2025-06-03",
+    version: 0.3,
+    date: "2025-07-31",
     fireOnLoad: function () { location.href = "ixian:onload"; },
     back: function () { location.href = "ixian:back"; },
     sendNetworkData: function (data) { location.href = "ixian:data" + encodeURIComponent(data); },
+    sendNetworkProtocolData: function (protocolId, data) { location.href = "ixian:protocolData" + protocolId + "=" + encodeURIComponent(data); },
     getStorageData: function (key) { location.href = "ixian:getStorageData" + encodeURIComponent(key); },
     setStorageData: function (key, value) { location.href = "ixian:setStorageData" + encodeURIComponent(key) + "=" + encodeURIComponent(value); },
     spixiAction: function (actionData) { location.href = "ixian:action" + encodeURIComponent(actionData); },
@@ -26,6 +27,7 @@ var SpixiAppSdk = {
     onInit: function (sessionId, userAddresses) { /*alert("Received init with sessionId: " + sessionId + " and userAddresses: " + userAddresses);*/ },
     onStorageData: function (key, value) { /*alert("Received storage data: " + key + "=" + value);*/ },
     onNetworkData: function (senderAddress, data) { /*alert("Received network data from " + senderAddress + ": " + data);*/ },
+    onNetworkProtocolData: function (senderAddress, protocolId, data) { /*alert("Received network app protocol data from " + senderAddress + " - " + protocolId + ": " + data);*/ },
     onRequestAccept: function (data) { /*alert("Received request accept: " + data);*/ },
     onRequestReject: function (data) { /*alert("Received request reject: " + data);*/ },
     onAppEndSession: function (data) { /*alert("Received app end session: " + data);*/ },

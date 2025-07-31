@@ -10,6 +10,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // MIT License for more details.
 
+var protocolId = "com.ixilabs.spixi.mini-apps-test";
+
 function storageDataTest() {
     var onStorageData1 = function (key, val) {
         if (key != "testKey") {
@@ -86,9 +88,14 @@ function appSdkDataReceived(type, data) {
     document.getElementById("miniAppsTestOutput").innerHTML += type + ": " + data + "<br/>";
 }
 
+function sendNetworkProtocolData(data) {
+    SpixiAppSdk.sendNetworkProtocolData(protocolId, data);
+}
+
 
 SpixiAppSdk.onStorageData = function (key, value) { appSdkDataReceived("onStorageData", key + "=" + value); };
 SpixiAppSdk.onNetworkData = function (senderAddress, data) { appSdkDataReceived("onNetworkData", senderAddress + "=" + data); };
+SpixiAppSdk.onNetworkProtocolData = function (senderAddress, protocolId, data) { appSdkDataReceived("onNetworkProtocolData", senderAddress + "=" + protocolId + ":" + data); };
 SpixiAppSdk.onRequestAccept = function (data) { appSdkDataReceived("onRequestAccept", data); };
 SpixiAppSdk.onRequestReject = function (data) { appSdkDataReceived("onRequestReject", data); };
 SpixiAppSdk.onAppEndSession = function (data) { appSdkDataReceived("onAppEndSession", data); };
