@@ -42,6 +42,7 @@ Each example includes:
 Included examples:
 
 - **com.ixilabs.spixi.auth** – QR code authentication utility
+- **com.ixilabs.spixi.gate-control** – QuIXI Gate Control Example App
 - **com.ixilabs.spixi.mini-apps-test** - Testing and demo playground
 - **com.ixilabs.spixi.tictactoe** – Multi-user Tic Tac Toe game
 - **com.ixilabs.spixi.video-test** – Local video testing app

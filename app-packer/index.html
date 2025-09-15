@@ -84,6 +84,15 @@
             <label>Capabilities</label>
             <input type="text" name="capabilities" readonly class="readonly" />
 
+            <label>Min Users</label>
+            <input type="text" name="minUsers" readonly class="readonly" />
+
+            <label>Max Users</label>
+            <input type="text" name="maxUsers" readonly class="readonly" />
+
+            <label>Protocols</label>
+            <input type="text" name="protocols" readonly class="readonly" />
+
             <label>Image URL</label>
             <input type="text" name="image" required />
 
@@ -252,6 +261,9 @@ name = ${data.name}
 version = ${data.version}
 capabilities = ${data.capabilities}
 image = ${data.image}
+minUsers = ${data.minUsers}
+maxUsers = ${data.maxUsers}
+protocols = ${data.protocols}
 contentUrl = ${data.contentUrl}
 checksum = ${checksum}
 contentSize = ${contentSize}`;

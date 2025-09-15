@@ -1,0 +1,10 @@
+caVersion = 0
+id = com.ixilabs.spixi.gate-control
+publisher = IXI Labs
+name = Gate Control
+version = 1.0.2
+capabilities = multiUser
+maxUsers = 2
+protocols = com.ixilabs.gatecontrol
+url = https://resources.ixian.io/gate-control.spixi
+contentUrl = https://resources.ixian.io/gate-control.zip
