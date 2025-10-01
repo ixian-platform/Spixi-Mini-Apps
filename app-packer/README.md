@@ -10,7 +10,7 @@ The packer is entirely browser-based and requires no installation or server-side
 
 To use the app packer:
 
-1. Open the `index.html` file in a web browser (e.g., Chrome, Firefox, Safari, Edge).
+1. Open the `index.html` file in a web browser (locally it will work only with Firefox) or access it from https://apps.spixi.io/packer.
 2. Drag and drop your app folder (must contain `appinfo.spixi` and `app/index.html`) into the drop area.
 3. The form will auto-populate with values from `appinfo.spixi`. Only the image and content URL fields are editable.
 4. Click **Pack**.
