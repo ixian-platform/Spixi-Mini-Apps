@@ -5,5 +5,3 @@ name = Whiteboard
 version = 1.0.2
 capabilities = multiUser
 maxUsers = 3
-url = https://resources.ixian.io/whiteboard.spixi
-contentUrl = https://resources.ixian.io/whiteboard.zip

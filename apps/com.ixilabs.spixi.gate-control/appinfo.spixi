@@ -6,5 +6,3 @@ version = 1.0.2
 capabilities = multiUser
 maxUsers = 2
 protocols = com.ixilabs.gatecontrol
-url = https://resources.ixian.io/gate-control.spixi
-contentUrl = https://resources.ixian.io/gate-control.zip
