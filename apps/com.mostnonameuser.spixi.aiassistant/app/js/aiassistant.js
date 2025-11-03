@@ -11,7 +11,6 @@ class AIAssistantApp {
         this.isWaitingForResponse = false;
         this.currentRequestId = null;
         this.messageElements = new Map();
-        this.STORAGE_KEYS = { SETTINGS: 'app_settings' };
         this.state = {
             messages: [],
             balance: 0.00,
