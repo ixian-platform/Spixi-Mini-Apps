@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Prism.js CSS -->
+    <link rel="stylesheet" href="css/prism-tomorrow.min.css" />
+</head>
+<body>
+    <div id="loadingScreen">
+        <div class="spinner"></div>
+        <p>Connecting...</p>
+    </div>
+
+    <header id="mainHeader">
+        <button id="backBtn">←</button>
+        <div class="header-title">
+        <span id="appName">AI Assistant</span>
+        <span id="balanceDisplay" class="balance-badge">0.00 IXI</span>
+        </div>
+        <div class="header-buttons">
+            <button id="settingsBtn">⚙️</button>
+            <button id="feedbackBtn">❓</button>
+        </div>
+    </header>
+
+    <main id="chatContainer"></main>
+
+    <footer id="inputFooter">
+        <button id="commandsBtn">📋</button>
+        <textarea id="messageInput" placeholder="Напишите сообщение..." rows="1" autofocus></textarea>
+        <button id="sendButton" disabled>✉️</button>
+    </footer>
+
+    <!-- Settings modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Настройки</h3>
+            <div class="setting-group">
+                <label for="themeSelect">Тема:</label>
+                <select id="themeSelect">
+                    <option value="light" selected>Светлая</option>
+                    <option value="dark">Тёмная</option>
+                </select>
+            </div>
+            <div class="setting-group">
+                <label for="languageSelect">Язык:</label>
+                <select id="languageSelect">
+                    <option value="ru" selected>Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+            <button id="closeSettingsBtn" class="modal-close">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Feedback modal -->
+    <div id="feedbackModal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Обратная связь</h3>
+            <textarea id="feedbackText" placeholder="Опишите вашу проблему или предложение..."></textarea>
+            <div class="modal-buttons">
+                <button id="cancelFeedbackBtn">Отмена</button>
+                <button id="sendFeedbackBtn">Отправить</button>
+            </div>
+        </div>
+    </div>
+    <!-- Context menu for messages -->
+    <div id="messageContextMenu" class="context-menu hidden"></div>
+    <!-- Commands menu -->
+    <div id="commandsMenu" class="commands-menu hidden">
+        <div class="command-item">Help</div>
+        <div class="command-item">Clear chat</div>
+    </div>
+    <script src="js/prism-core.min.js"></script>
+    <script src="js/prism-autoloader.min.js"></script>
+    <script src="js/spixi-app-sdk.js"></script>
+    <script src="js/spixi-tools.js"></script>
+    <script src="js/aiassistant.js"></script>
+</body>
+</html>

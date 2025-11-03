@@ -1,0 +1,8 @@
+caVersion = 0
+id = com.mostnonameuser.spixi.aiassistant
+publisher = mostnonameuser 
+name = AI Assistant
+version = 0.1.2
+capabilities = multiUser
+protocols = com.mostnonameuser.aiassistant
+icon = icon.png
