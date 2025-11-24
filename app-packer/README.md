@@ -1,6 +1,6 @@
 # Spixi MiniApp Packer
 
-**Spixi MiniApp Packer** is a web-based utility for packaging Spixi-compatible Mini Apps. It allows developers to easily generate the `.zip` archive, `.spixi` metadata file, and `icon.png` required for publishing their app.
+**Spixi MiniApp Packer** is a web-based utility for packaging Spixi-compatible Mini Apps. It allows developers to easily generate the `.zspixiapp` archive, `.spixi` metadata file, and `icon.png` required for publishing their app.
 
 The packer is entirely browser-based and requires no installation or server-side components.
 
@@ -16,12 +16,12 @@ To use the app packer:
 4. Click **Pack**.
 
 The packer will:
-- Generate a compressed `.zip` archive of your app
+- Generate a compressed `.zspixiapp` archive of your app
 - Compute a SHA-256 checksum
 - Create a `.spixi` metadata file including size and checksum
 - Extract and save `icon.png` separately
 - Prompt you to download all three files:
-  - `yourapp.zip`
+  - `yourapp.zspixiapp`
   - `yourapp.spixi`
   - `yourapp.png`
 
@@ -57,7 +57,7 @@ name = YourApp
 version = 1.0.0
 capabilities = multiUser
 image = yourapp.png
-contentUrl = yourapp.zip
+contentUrl = yourapp.zspixiapp
 checksum = <sha256 checksum>
 contentSize = <size in bytes>
 ```
@@ -67,7 +67,7 @@ contentSize = <size in bytes>
 ## Hosting
 
 Once packed, upload the following to your web host:
-- `yourapp.zip`
+- `yourapp.zspixiapp`
 - `yourapp.spixi`
 - `yourapp.png`
 

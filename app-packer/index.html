@@ -376,7 +376,7 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align:center">Spixi MiniApp Packer v1.2</h1>
+    <h1 style="text-align:center">Spixi MiniApp Packer v1.3</h1>
     <div class="dropzone" id="dropzone">Drop your app folder here</div>
 
     <div id="appPreview" style="display:none; justify-content:center; align-items:center; margin-bottom:1em; gap:1em;">
@@ -425,7 +425,7 @@
             <label>Image URL</label>
             <input type="text" name="image" required />
 
-            <label>Content URL (zip file)</label>
+            <label>Content URL (zspixiapp file)</label>
             <input type="text" name="contentUrl" required />
 
             <label>contentSize (bytes)</label>
@@ -584,7 +584,7 @@
             const appName = spixi.name?.trim().replace(/\s+/g, '-').toLowerCase();
             if (appName) {
                 form.elements['image'].value = `${appName}.png`;
-                form.elements['contentUrl'].value = `${appName}.zip`;
+                form.elements['contentUrl'].value = `${appName}.zspixiapp`;
             }
 
             // Show preview
@@ -647,7 +647,7 @@ contentSize = ${contentSize}`;
             const spixiBlob = new Blob([spixiText], { type: "text/plain" });
 
             const baseName = data.name.trim().replaceAll(' ', '-').toLowerCase();
-            saveAs(zipBlob, `${baseName}.zip`);
+            saveAs(zipBlob, `${baseName}.zspixiapp`);
             saveAs(spixiBlob, `${baseName}.spixi`);
             const iconFile = filesMap.get('icon.png');
             if (iconFile) {
@@ -694,7 +694,7 @@ contentSize = ${contentSize}`;
             document.getElementById('kv-size').textContent = `${contentSize} bytes (${bytesToNice(contentSize)})`;
 
             fileList.innerHTML = '';
-            ['.spixi', '.zip', '.png'].forEach(ext => {
+            ['.spixi', '.zspixiapp', '.png'].forEach(ext => {
                 const li = document.createElement('li');
                 li.innerHTML = `<span class="dot" aria-hidden="true"></span><span class="file">${baseName}${ext}</span>`;
                 fileList.appendChild(li);
