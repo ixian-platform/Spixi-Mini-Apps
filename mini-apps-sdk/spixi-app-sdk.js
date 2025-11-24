@@ -13,8 +13,8 @@
 // Spixi Mini Mini Apps SDK
 
 var SpixiAppSdk = {
-    version: 0.3,
-    date: "2025-07-31",
+    version: 0.4,
+    date: "2025-11-24",
     fireOnLoad: function () { location.href = "ixian:onload"; },
     back: function () { location.href = "ixian:back"; },
     sendNetworkData: function (data) { location.href = "ixian:data" + encodeURIComponent(data); },
@@ -31,4 +31,6 @@ var SpixiAppSdk = {
     onRequestAccept: function (data) { /*alert("Received request accept: " + data);*/ },
     onRequestReject: function (data) { /*alert("Received request reject: " + data);*/ },
     onAppEndSession: function (data) { /*alert("Received app end session: " + data);*/ },
+    onTransactionReceived: function (senderAddress, amount, txid, data, verified) { /*alert("Received transaction from " + senderAddress + ": " + amount + " " + txid + " " + data + " " + verified);*/ },
+    onPaymentSent: function (recipientAddress, amount, txid, data, verified) { /*alert("Sent payment from " + recipientAddress + ": " + amount + " " + txid + " " + data + " " + verified);*/ },
 };

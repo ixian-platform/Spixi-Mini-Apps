@@ -11,6 +11,8 @@
 // MIT License for more details.
 
 var protocolId = "com.ixilabs.spixi.mini-apps-test";
+var appSessionId = "";
+var remotePlayers = [];
 
 function storageDataTest() {
     var onStorageData1 = function (key, val) {
@@ -92,10 +94,28 @@ function sendNetworkProtocolData(data) {
     SpixiAppSdk.sendNetworkProtocolData(protocolId, data);
 }
 
+function sendPayment(recipient, amount) {
+    var data = {
+        "command": "sendPayment",
+        "recipients": { }
+    };
+    data.recipients[recipient] = amount;
+    SpixiAppSdk.spixiAction(JSON.stringify(data));
+}
 
+SpixiAppSdk.onInit = function (sessionId, recipient) {
+    appSessionId = sessionId;
+    remotePlayers = [recipient];
+    appSdkDataReceived("onInit", sessionId + " " + recipient);
+    document.getElementById("sendTransactionBtn").innerHTML = "Send 1 IXI to " + recipient;
+}
 SpixiAppSdk.onStorageData = function (key, value) { appSdkDataReceived("onStorageData", key + "=" + value); };
 SpixiAppSdk.onNetworkData = function (senderAddress, data) { appSdkDataReceived("onNetworkData", senderAddress + "=" + data); };
 SpixiAppSdk.onNetworkProtocolData = function (senderAddress, protocolId, data) { appSdkDataReceived("onNetworkProtocolData", senderAddress + "=" + protocolId + ":" + data); };
 SpixiAppSdk.onRequestAccept = function (data) { appSdkDataReceived("onRequestAccept", data); };
 SpixiAppSdk.onRequestReject = function (data) { appSdkDataReceived("onRequestReject", data); };
 SpixiAppSdk.onAppEndSession = function (data) { appSdkDataReceived("onAppEndSession", data); };
+SpixiAppSdk.onTransactionReceived = function (senderAddress, amount, txid, data, verified) { appSdkDataReceived("onTransactionReceived", senderAddress + ": " + amount + " " + txid + " " + data + " " + verified); };
+SpixiAppSdk.onPaymentSent = function (recipientAddress, amount, txid, data, verified) { appSdkDataReceived("onPaymentSent", recipientAddress + ": " + amount + " " + txid + " " + data + " " + verified); };
+
+window.onload = SpixiAppSdk.fireOnLoad;
