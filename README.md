@@ -17,7 +17,7 @@ Use this SDK in your Mini Apps to communicate with the Spixi client and other us
 ---
 
 ### App Packer (`app-packer/`)
-A web-based utility for generating `.zip`, `.spixi`, and `icon.png` files needed to publish your app.
+A web-based utility for generating `.zspixiapp`, `.spixi`, and `icon.png` files needed to publish your app.
 
 - 100% browser-based
 - No installation or server required
@@ -80,7 +80,7 @@ version = 1.0.0
 capabilities = multiUser
 ```
 
-Once your app is ready, use the **App Packer** to generate `.zip`, `.spixi`, and `.png` files for publishing.
+Once your app is ready, use the **App Packer** to generate `.zspixiapp`, `.spixi`, and `.png` files for publishing.
 
 ---
 
