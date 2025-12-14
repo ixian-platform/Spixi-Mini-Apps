@@ -3,6 +3,6 @@ id = com.ixilabs.spixi.mini-apps-test
 publisher = IXI Labs
 name = Mini Apps Test
 version = 1.2.0
-capabilities = multiUser, transactionsigning
+capabilities = multiUser, transactionSigning
 protocols = com.ixilabs.spixi.mini-apps-test
 maxUsers = 2
