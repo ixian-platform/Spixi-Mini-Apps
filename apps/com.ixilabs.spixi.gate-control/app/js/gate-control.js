@@ -101,8 +101,8 @@ class GateControlApp {
         document.hidden ? this.stopPinging() : this.startPinging();
     };
 
-    onInit = (sessionId, userAddresses) => {
-        console.log("App initialized. Session:", sessionId, "Users:", userAddresses);
+    onInit = (sessionId, userAddress, ...remoteAddresses) => {
+        console.log("App initialized. Session:", sessionId, "User:", userAddress, "Remote:", remoteAddresses);
 
         this.initElements();
         this.setupControls();
@@ -118,9 +118,9 @@ class GateControlApp {
     };
 }
 
-SpixiAppSdk.onInit = (sessionId, userAddresses) => {
+SpixiAppSdk.onInit = (sessionId, userAddress, ...remoteAddresses) => {
     const gateControlApp = new GateControlApp();
-    gateControlApp.onInit(sessionId, userAddresses);
+    gateControlApp.onInit(sessionId, userAddress, remoteAddresses);
 };
 
 window.onload = SpixiAppSdk.fireOnLoad;

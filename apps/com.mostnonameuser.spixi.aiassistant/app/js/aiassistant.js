@@ -800,7 +800,7 @@ setupCommandItems = () => {
 
         textarea.style.height = `${newHeight}px`;
     };
-    onInit = (sessionId, userAddresses) => {
+    onInit = (sessionId, userAddress, remoteAddresses) => {
         this.initElements();
         this.autoResizeTextarea();
         this.setupControls();
@@ -835,7 +835,7 @@ function loadSettings(callback) {
             callback(theme, lang);
         }
     };
-    SpixiAppSdk.getStorageData(AIAssistantApp.STORAGE_KEY);
+    SpixiAppSdk.getStorageData('settings', AIAssistantApp.STORAGE_KEY);
 }
 function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
@@ -867,12 +867,12 @@ function fallbackCopyText(text) {
 function saveSettings(theme, lang) {
     const data = theme + '|' + lang;
     const encoded = btoa(data);
-    SpixiAppSdk.setStorageData(AIAssistantApp.STORAGE_KEY, encoded);
+    SpixiAppSdk.setStorageData('settings', AIAssistantApp.STORAGE_KEY, encoded);
 }
 
-SpixiAppSdk.onInit = (sessionId, userAddresses) => {
+SpixiAppSdk.onInit = (sessionId, userAddress, ...remoteAddresses) => {
     const aiAssistantApp = new AIAssistantApp();
-    aiAssistantApp.onInit(sessionId, userAddresses);
+    aiAssistantApp.onInit(sessionId, userAddress, remoteAddresses);
 };
 
 window.onload = SpixiAppSdk.fireOnLoad;

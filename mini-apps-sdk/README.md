@@ -30,8 +30,8 @@ The SDK provides integration points for communicating with the decentralized Ixi
 3. Handle events by overriding the appropriate callbacks:
 
    ```javascript
-   SpixiAppSdk.onInit = function(sessionId, userAddresses) {
-       console.log("App session started:", sessionId, userAddresses);
+   SpixiAppSdk.onInit = function(sessionId, userAddress, ...remoteAddresses) {
+       console.log("App session started:", sessionId, userAddress, remoteAddresses);
    };
 
    SpixiAppSdk.onNetworkData = function(sender, data) {
@@ -48,8 +48,8 @@ The SDK provides integration points for communicating with the decentralized Ixi
 | `fireOnLoad()`               | Notifies Spixi that the Mini App has loaded.  |
 | `back()`                     | Signals a request to close the app view.      |
 | `sendNetworkData(data)`      | Sends `data` to other users in the session.   |
-| `getStorageData(key)`        | Requests a locally stored value by key.       |
-| `setStorageData(key, value)` | Saves a key-value pair to local storage.      |
+| `getStorageData(table, key)`        | Requests a locally stored value by key.       |
+| `setStorageData(table, key, value)` | Saves a key-value pair to local storage.      |
 | `spixiAction(actionData)`    | Sends a custom action string to the host app. |
 
 ### Event Handlers to Override
@@ -58,7 +58,6 @@ The SDK provides integration points for communicating with the decentralized Ixi
 | ------------------------------------ | ---------------------------------------------- |
 | `onInit(sessionId, userAddresses)`   | Called when the Mini App starts.               |
 | `onNetworkData(senderAddress, data)` | Called when data is received from the network. |
-| `onStorageData(key, value)`          | Called when a stored value is received.        |
 | `onRequestAccept(data)`              | Called when a session request is accepted.     |
 | `onRequestReject(data)`              | Called when a session request is rejected.     |
 | `onAppEndSession(data)`              | Called when the session ends.                  |

@@ -90,16 +90,13 @@ Click **“Send Random Network Data”** to:
 ### 1. Setting Data
 
 ```javascript
-SpixiAppSdk.setStorageData("testKey", btoa("value"));
+await SpixiAppSdk.setStorageData("table", "testKey", "value");
 ```
 
 ### 2. Getting Data
 
 ```javascript
-SpixiAppSdk.getStorageData("testKey");
-SpixiAppSdk.onStorageData = function (key, value) {
-    console.log(key, atob(value));
-};
+await SpixiAppSdk.getStorageData("table", "testKey");
 ```
 
 ### 3. Sending Network Data
@@ -128,8 +125,6 @@ function appSdkDataReceived(type, data) {
 
 ## 📌 Notes
 
-* **Callback `onStorageData` is dynamically reassigned** during tests. This is important for verifying individual operations in sequence.
-* Spixi requires data to be **base64-encoded before saving**, and **decoded after retrieval** using `btoa()` and `atob()`.
 * Network data can only be sent and received when the app is running within an active Spixi session.
 
 ---

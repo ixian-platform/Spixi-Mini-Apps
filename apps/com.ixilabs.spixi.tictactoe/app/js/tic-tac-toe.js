@@ -121,16 +121,17 @@ function makeMove(index) {
 
 function saveGameState() {
     if (remotePlayerAddress != '') {
-        setTimeout(function () {
-            SpixiAppSdk.setStorageData(remotePlayerAddress, btoa(JSON.stringify(gameState)));
-        }, 50);
+        SpixiAppSdk.setStorageData('game', remotePlayerAddress, JSON.stringify(gameState));
     }
 }
 
-function loadGameState(playerAddress) {
-    setTimeout(function () {
-        SpixiAppSdk.getStorageData(playerAddress);
-    }, 50);
+async function loadGameState(playerAddress) {
+    let value = await SpixiAppSdk.getStorageData('game', playerAddress);
+    if (value != 'null') {
+        gameState = JSON.parse(value);
+        renderBoard();
+        checkWinner();
+    }
 }
 
 function switchPlayer() {
@@ -143,37 +144,31 @@ function sendMove(cellPosition) {
     const currentTime = SpixiTools.getTimestamp();
     lastDataSent = currentTime;
 
-    setTimeout(function () {
-        const data = { action: "move", cellPosition: cellPosition };
-        SpixiAppSdk.sendNetworkData(JSON.stringify(data));
-    }, 0);
+    const data = { action: "move", cellPosition: cellPosition };
+    SpixiAppSdk.sendNetworkData(JSON.stringify(data));
 }
 
 function sendGameState(forceUpdate) {
     const currentTime = SpixiTools.getTimestamp();
     lastDataSent = currentTime;
 
-    setTimeout(function () {
-        let data = { action: "gameState", gameState: gameState };
-        if (forceUpdate) {
-            data = { action: "gameState", gameState: gameState, forceUpdate: true };
-        }
-        SpixiAppSdk.sendNetworkData(JSON.stringify(data));
-    }, 0);
+    let data = { action: "gameState", gameState: gameState };
+    if (forceUpdate) {
+        data = { action: "gameState", gameState: gameState, forceUpdate: true };
+    }
+    SpixiAppSdk.sendNetworkData(JSON.stringify(data));
 }
 
 function sendGetGameState() {
     const currentTime = SpixiTools.getTimestamp();
     lastDataSent = currentTime;
 
-    setTimeout(function () {
-        const data = { action: "getGameState" };
-        SpixiAppSdk.sendNetworkData(JSON.stringify(data));
-    }, 0);
+    const data = { action: "getGameState" };
+    SpixiAppSdk.sendNetworkData(JSON.stringify(data));
 }
 
-SpixiAppSdk.onInit = function (sessionId, userAddresses) {
-    remotePlayerAddress = userAddresses.split(",")[0];
+SpixiAppSdk.onInit = function (sessionId, userAddress, ...remoteAddresses) {
+    remotePlayerAddress = remoteAddresses[0];
     restartGame(false);
     loadGameState(remotePlayerAddress);
 };
@@ -255,14 +250,6 @@ SpixiAppSdk.onNetworkData = function (senderAddress, data) {
                 }
             }
             break;
-    }
-};
-
-SpixiAppSdk.onStorageData = function (key, value) {
-    if (value != 'null') {
-        gameState = JSON.parse(atob(value));
-        renderBoard();
-        checkWinner();
     }
 };
 
