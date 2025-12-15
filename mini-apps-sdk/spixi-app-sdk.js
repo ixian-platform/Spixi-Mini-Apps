@@ -19,8 +19,8 @@ const SPX_CMD_SET_STORAGE = "setStorage";
 const SPX_CMD_SEND_PAYMENT = "sendPayment";
 
 var SpixiAppSdk = {
-    version: 0.5,
-    date: "2025-12-13",
+    version: 0.51,
+    date: "2025-12-15",
     _requestId: 0,
     _pendingRequests: {},
 
@@ -49,7 +49,7 @@ var SpixiAppSdk = {
     },
     
     /**
-     * Sends protocol-specific data to all remote addresses, optionally to a specific recipient.
+     * Sends protocol-specific data to all remote addresses or optionally to a specific recipient.
      * @param {string} protocolId - Protocol identifier
      * @param {string} data - Data to send
      * @param {string|null} recipientAddress - Optional recipient address
@@ -132,16 +132,23 @@ var SpixiAppSdk = {
 
     /**
      * !! INTERNAL !!
-     * Handles responses from the backend for actions sent with a requestId.
-     * Resolves the corresponding promise with the response data.
-     * @param {string|object} actionResponse - JSON string or object containing at least an id
+     * Handles backend responses for actions sent with a requestId.
+     * Accepts either a JSON string or an object containing at least an 'id' property.
+     * Resolves or rejects the corresponding promise based on the presence of an error ('e') property in the response.
+     * Cleans up the pending request after handling.
+     * @param {string|object} actionResponse - JSON string or object with at least an 'id' property, and optionally 'e' (error) or 'r' (result).
      */
     ar: function (actionResponse) {
         try {
             let resp = (typeof actionResponse === 'string') ? JSON.parse(actionResponse) : actionResponse;
             let reqId = resp.id;
-            if (reqId && SpixiAppSdk._pendingRequests[reqId]) {
-                SpixiAppSdk._pendingRequests[reqId].resolve(resp.r);
+            let pendingRequest = SpixiAppSdk._pendingRequests[reqId];
+            if (reqId && pendingRequest) {
+                if (resp.e) {
+                    pendingRequest.reject(resp.e);
+                } else {
+                    pendingRequest.resolve(resp.r);
+                }
                 delete SpixiAppSdk._pendingRequests[reqId];
             }
         } catch (e) {
@@ -155,7 +162,7 @@ var SpixiAppSdk = {
      * Called when the backend is initialized, after fireOnLoad.
      * @param {string} sessionId - Session identifier
      * @param {string} userAddress - User's address
-     * @param {...string} remoteAddresses - Remote participant addresses
+     * @param {...string} remoteAddresses - Remote participants addresses
      */
     onInit: function (sessionId, userAddress, ...remoteAddresses) { /*alert("Received init with sessionId: " + sessionId + " and userAddress: " + userAddress);*/ },
 

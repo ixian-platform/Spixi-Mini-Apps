@@ -800,7 +800,7 @@ setupCommandItems = () => {
 
         textarea.style.height = `${newHeight}px`;
     };
-    onInit = (sessionId, userAddress, remoteAddresses) => {
+    onInit = (sessionId, userAddress, ...remoteAddresses) => {
         this.initElements();
         this.autoResizeTextarea();
         this.setupControls();

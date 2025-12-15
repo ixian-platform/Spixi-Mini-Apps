@@ -56,7 +56,7 @@ The SDK provides integration points for communicating with the decentralized Ixi
 
 | Handler                              | Description                                    |
 | ------------------------------------ | ---------------------------------------------- |
-| `onInit(sessionId, userAddresses)`   | Called when the Mini App starts.               |
+| `onInit(sessionId, userAddress, ...remoteAddresses)`   | Called when the Mini App starts.               |
 | `onNetworkData(senderAddress, data)` | Called when data is received from the network. |
 | `onRequestAccept(data)`              | Called when a session request is accepted.     |
 | `onRequestReject(data)`              | Called when a session request is rejected.     |
