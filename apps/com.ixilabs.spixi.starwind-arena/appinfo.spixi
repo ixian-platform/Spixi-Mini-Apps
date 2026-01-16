@@ -1,0 +1,8 @@
+caVersion = 0
+id = com.ixilabs.spixi.starwind-arena
+publisher = IXI Labs
+name = Ixian Starwind Arena
+version = 1.0.0
+capabilities = multiUser
+minUsers = 2
+maxUsers = 2

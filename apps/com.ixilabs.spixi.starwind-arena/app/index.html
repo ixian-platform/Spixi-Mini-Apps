@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="Turn-based multiplayer robot battle game built with Spixi Mini Apps SDK.">
+    <title>Ixian Starwind Arena</title>
+    <style>
+        /* Small utility used to replace repeated inline styles */
+        .hidden { display: none !important; }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Menu Overlay -->
+    <div id="menuOverlay" class="hidden" aria-hidden="true">
+        <div id="menuPanel">
+            <button class="close" id="resumeBtn" type="button" aria-label="Close">×</button>
+            <h2>Ixian Starwind Arena</h2>
+            <button id="soundToggleBtn" type="button">🔊 Sound: ON</button>
+            <button id="controlsBtn" type="button">🎮 Controls</button>
+            <button id="helpBtn" type="button">❓ Help</button>
+            <button id="aboutBtn" type="button">ℹ️ About</button>
+            <button id="donateBtn" type="button">💝 Donate IXI to developers</button>
+        </div>
+    </div>
+
+    <!-- Controls Modal -->
+    <div id="controlsModal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button class="close" id="closeControls" type="button" aria-label="Close">×</button>
+            <h2>Controls Settings</h2>
+
+            <h3>Joystick Side</h3>
+            <p>Choose which side of the screen the joystick appears on:</p>
+            <div class="control-option">
+                <label>
+                    <input type="radio" name="joystickSide" value="left" id="joystickLeft">
+                    Left
+                </label>
+            </div>
+            <div class="control-option">
+                <label>
+                    <input type="radio" name="joystickSide" value="right" id="joystickRight">
+                    Right
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="helpTitle" aria-describedby="helpDesc">
+        <div class="modal-content">
+            <button class="close" id="closeHelp" type="button" aria-label="Close">×</button>
+            <h2 id="helpTitle">How to Play</h2>
+            <p id="helpDesc"><strong>Objective:</strong> Destroy all enemy robots to win!</p>
+            <p><strong>Controls:</strong></p>
+            <ul>
+                <li><strong>Desktop:</strong> Arrow keys or A/D to move your robot</li>
+                <li><strong>Mobile:</strong> Touch left/right sides of screen to move robot. Touch and hold on robot to charge power (rainbow indicator) and aim, then release to fire</li>
+                <li><strong>Angle:</strong> Move mouse/touch to aim</li>
+                <li><strong>Power:</strong> Hold mouse button on the robot or touch the robot to charge power (rainbow indicator), or use slider</li>
+                <li><strong>Fire:</strong> Release mouse/touch or click FIRE button (only works during your turn)</li>
+            </ul>
+            <p><strong>Wind:</strong> IXI logos show wind direction and speed (affects projectiles)</p>
+            <p><strong>Turn Timer:</strong> 30 seconds per turn</p>
+            <p><strong>Health:</strong> Damage persists across multiple games until reset</p>
+            <p><strong>Menu:</strong> Click the ☰ button to access settings</p>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" aria-describedby="aboutDesc">
+        <div class="modal-content">
+            <button class="close" id="closeAbout" type="button" aria-label="Close">×</button>
+            <h2 id="aboutTitle">About Ixian Starwind Arena</h2>
+            <p id="aboutDesc"><strong>Version:</strong> 1.0</p>
+            <p><strong>Developer:</strong> IXI Labs</p>
+            <p>A futuristic turn-based multiplayer robot battle game built with Spixi Mini Apps SDK.</p>
+            <p>Featuring peer-to-peer gameplay, real-time synchronization, and blockchain integration.</p>
+            <p><strong>Powered by:</strong> Ixian Platform & Spixi Messenger</p>
+            <p>© 2026 IXI Labs. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Donate Modal -->
+    <div id="donateModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="donateTitle" aria-describedby="donateDesc">
+        <div class="modal-content">
+            <button class="close" id="closeDonate" type="button" aria-label="Close">×</button>
+            <h2 id="donateTitle">Support Development</h2>
+            <p id="donateDesc">Enjoying Starwind Arena? Support the development with IXI!</p>
+            <div class="donate-input">
+                <label for="donateAmount">Amount (IXI):</label>
+                <input type="number" id="donateAmount" min="1" value="10" step="1" aria-label="Donation amount">
+            </div>
+            <p class="donate-address">Recipient: 12DjT6SFys29CLdy2vASv6iYdRZ4XXUebfYMXsExfksmpcgvr</p>
+            <button id="sendDonationBtn" class="primary-btn" type="button">Send Donation</button>
+        </div>
+    </div>
+
+    <div id="gameUI">
+        <div id="topBar">
+            <button id="menuBtn" class="icon-btn" type="button" aria-controls="menuOverlay">☰</button>
+            <div id="playerInfo"></div>
+            <div id="turnTimer">30</div>
+            <div id="gameStatus" aria-live="polite">Waiting for players...</div>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas" role="img" aria-label="Game canvas" tabindex="0">Your browser does not support the HTML5 Canvas element.</canvas>
+
+    <!-- Ixian SDK - handles P2P communication -->
+    <script src="js/spixi-app-sdk.js" defer></script>
+    <script src="js/spixi-tools.js" defer></script>
+
+    <script src="js/sound-manager.js" defer></script>
+    <script src="js/constants.js" defer></script>      <!-- Configuration & constants -->
+    <script src="js/themes.js" defer></script>         <!-- Theme system -->
+    <script src="js/game-core.js" defer></script>      <!-- Main loop & game logic -->
+    <script src="js/game-state.js" defer></script>     <!-- Global state & canvas setup -->
+    <script src="js/terrain.js" defer></script>        <!-- terrain generation -->
+    <script src="js/physics.js" defer></script>        <!-- Physics -->
+    <script src="js/network.js" defer></script>        <!-- P2P messaging & sync -->
+    <script src="js/ui-manager.js" defer></script>     <!-- UI initialization & events -->
+    <script src="js/rendering.js" defer></script>      <!-- Canvas rendering -->
+    <script src="js/camera.js" defer></script>         <!-- Camera -->
+    <script src="js/controls.js" defer></script>
+</body>
+</html>

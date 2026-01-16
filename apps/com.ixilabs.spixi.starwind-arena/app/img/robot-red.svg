@@ -1,0 +1,52 @@
+<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F44336;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B71C1C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+       <stop offset="0%" style="stop-color:#78909C;stop-opacity:1" />
+       <stop offset="50%" style="stop-color:#455A64;stop-opacity:1" />
+       <stop offset="100%" style="stop-color:#263238;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="20" cy="38" rx="12" ry="2" fill="rgba(0,0,0,0.5)"/>
+
+  <!-- Legs -->
+  <path d="M14 26 L10 32 L6 38 H14 L16 32 Z" fill="url(#metal)"/>
+  <path d="M26 26 L30 32 L34 38 H26 L24 32 Z" fill="url(#metal)"/>
+
+  <!-- Body Armor -->
+  <path d="M12 14 L28 14 L26 28 L14 28 Z" fill="url(#mainGrad)"/>
+  <path d="M12 14 L10 18 L14 18 Z" fill="#880E4F"/>
+  <path d="M28 14 L30 18 L26 18 Z" fill="#880E4F"/>
+
+  <!-- Chest Plate Details -->
+  <path d="M16 16 H24 V20 L20 24 L16 20 Z" fill="rgba(0,0,0,0.3)"/>
+  <circle cx="20" cy="20" r="2" fill="#FF5252" filter="url(#glow)"/>
+
+  <!-- Head -->
+  <path d="M15 13 L25 13 L24 6 L16 6 Z" fill="url(#metal)"/>
+  <rect x="16" y="9" width="8" height="2" fill="#FF5252" filter="url(#glow)"/>
+  
+  <!-- Shoulders -->
+  <circle cx="10" cy="15" r="3" fill="url(#mainGrad)"/>
+  <circle cx="30" cy="15" r="3" fill="url(#mainGrad)"/>
+
+  <!-- Arms -->
+  <path d="M10 15 L6 22 L8 24" stroke="url(#metal)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M30 15 L34 22 L32 24" stroke="url(#metal)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Weapon/Hand -->
+  <circle cx="7" cy="25" r="2" fill="#FF5252" filter="url(#glow)"/>
+  <circle cx="33" cy="25" r="2" fill="#FF5252" filter="url(#glow)"/>
+</svg>
