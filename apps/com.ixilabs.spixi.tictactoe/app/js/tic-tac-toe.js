@@ -127,7 +127,7 @@ function saveGameState() {
 
 async function loadGameState(playerAddress) {
     let value = await SpixiAppSdk.getStorageData('game', playerAddress);
-    if (value != 'null') {
+    if (value != null) {
         gameState = JSON.parse(value);
         renderBoard();
         checkWinner();
