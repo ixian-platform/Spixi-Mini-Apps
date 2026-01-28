@@ -30,10 +30,10 @@ let joystick = {
 };
 
 async function setupTouchControls() {
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    //if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
         await loadJoystickPreference();
         setupVirtualJoystick();
-    }
+    //}
 }
 
 async function loadJoystickPreference() {

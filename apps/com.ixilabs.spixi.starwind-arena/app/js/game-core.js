@@ -6,7 +6,7 @@ SpixiAppSdk.onInit = async function(sessionId, myAddress) {
     gameState.myAddress = myAddress;
     broadcast({type: 'requestState'});
     await soundManager.init();
-    initUI();
+    await initUI();
     startGameLoop();
     ui.gameStatus.textContent = 'Waiting in lobby...';
     if ('ontouchstart' in window || navigator.maxTouchPoints>0) ui.touchControls?.classList.remove('hidden');
